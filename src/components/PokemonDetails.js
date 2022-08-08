@@ -1,0 +1,39 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PokemonCard from "./PokemonCard";
+import { fetchPokemon } from "../action/PokemonAction";
+import Search from "./Search";
+
+const PokemonDetails = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPokemon());
+  }, [dispatch]);
+  const pokemons = useSelector((state) => state.pokemons);
+  const searchedPokemons = useSelector((state) => state.searchedPokemon);
+  return (
+    <div>
+      <Search pokemons={pokemons} />
+
+      <div className="pokemonList ">
+        {searchedPokemons.length > 0 ? (
+          <>
+            {searchedPokemons &&
+              searchedPokemons.map((ele, i) => {
+                return <PokemonCard name={ele.name} key={i} />;
+              })}
+          </>
+        ) : (
+          <>
+            {pokemons &&
+              pokemons.map((ele, i) => {
+                return <PokemonCard name={ele.name} key={i} />;
+              })}
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default PokemonDetails;

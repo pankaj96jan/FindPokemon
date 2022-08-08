@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+// import { useState } from 'react';
+import { useEffect } from "react";
+import "./App.css";
+import PokemonDetails from "./components/PokemonDetails";
 
 function App() {
+  const handleCredentialResponse = (response) => {
+    console.log("response", response.credential);
+  };
+
+  useEffect(() => {
+    window.google.accounts.id.initialize({
+      client_id:
+        "90218340677-c8ktvtl8fqu766jijqsai3prtq07ro6a.apps.googleusercontent.com",
+      callback: handleCredentialResponse,
+    });
+    window.google.accounts.id.prompt();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <PokemonDetails />
     </div>
   );
 }

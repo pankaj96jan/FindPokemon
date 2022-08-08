@@ -1,38 +1,38 @@
-.App {
+* {
+  margin: 0px;
+}
+
+.app {
+  background: linear-gradient(90deg, rgba(232, 249, 222, 1) 0%, rgba(255, 158, 176, 1) 51%)
+}
+
+.pokemonList {
+  background: linear-gradient(90deg, rgba(232, 249, 222, 1) 0%, rgba(255, 158, 176, 1) 51%);
+  display: grid;
+  grid-template-columns: auto auto auto auto
+}
+
+.pokemon_card {
+  transition-delay: 1s;
+  /* background: linear-gradient(90deg, rgba(232,249,222,1) 0%, rgba(255,158,176,1) 51%) */
+  border-radius: 20px;
+  margin: 20px;
+  padding: 10px 10px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.searchCompo {
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
+  font: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.searchCompo>input {
+  font-size: 20px;
+  border: none;
+  width: 50%;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
 }
