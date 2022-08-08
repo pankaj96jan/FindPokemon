@@ -19,14 +19,12 @@ const Search = ({ pokemons }) => {
     };
 
     return (
-        <div className="searchCompo">
+        <div className="search_box">
             <input
                 value={searchInput}
                 onChange={handleSearch}
-                id="searchInput"
-                placeholder="search name"
+                placeholder="Search here ..."
                 type="text"
-                value={searchInput}
             ></input>
         </div>
     );

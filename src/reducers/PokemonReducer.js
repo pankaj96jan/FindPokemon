@@ -5,7 +5,6 @@ const pokemonReducer = (state = pokemonsInitialState, action) => {
         case "POKEMON_FETCH":{
             return [...action.payload];
         }
-
         default:
             return state
     }

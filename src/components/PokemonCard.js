@@ -5,92 +5,71 @@ import ProgressBar from "./ProgressBar";
 const PokemonCard = ({ name }) => {
   const [toggle, setToggle] = useState(false);
   const [pokemonDetail, setPokemonDetail] = useState({});
-  const handleToggle = () => {
-    setToggle(!toggle);
+
+  const handleToggle = (id) => {
+    setToggle(id);
     console.log(toggle);
   };
-  // const pokemonDetail = useSelector((state) => state.pokemonDetail)
-  // const dispatch = useDispatch()
-  // useEffect(() => {
-  //     dispatch(fetchPokemonDetails(name))
-  // }, [])
-  // const handleCardBackground = () => {
-  //     let pokemonType = pokemonDetail.types[0].type.name
-  //     if (pokemonType === "grass") {
-  //         return "lightgreen"
-  //     } else if (pokemonType === "fire") {
-  //         return "white"
-  //     }
-  // }
+
   useEffect(() => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then((res) => {
         setPokemonDetail(res.data);
-        // dispatch(pokemonDetailAction(res.data))
       })
       .catch((err) => alert(err.message));
   }, [name]);
-  console.log(toggle);
+  const typeName=pokemonDetail &&
+  pokemonDetail.types &&
+  pokemonDetail.types[0] 
+  
+  const wrapperClass = !toggle ? "card_wrapper " : "progress_wrapper";
   return (
-    <div className="pokemon_card ">
+    <div
+      className={wrapperClass}
+      onMouseOver={() => handleToggle(pokemonDetail?.id)}
+      onMouseOut={() => handleToggle(!pokemonDetail?.id)}
+    >
       {toggle ? (
-        <div
-          style={{
-            background: "black",
-            borderRadius: "inherit",
-            color: "white",
-          }}
-        // onMouseOver={handleToggle}
-        // onMouseOut={handleToggle}
-        >
+        <>
           {pokemonDetail && (
-            <div
-              // onMouseOver={handleToggle}
-              onMouseOut={handleToggle}
-            >
+            <div>
               {pokemonDetail.stats.map((stat, i) => (
-                <div key={i} style={{ display: "flex" }}>
-                  <div style={{ flex: 0.3 }}>{stat.stat.name}</div>
-                  <div style={{ flex: 0.4, padding: "10px" }}>
-                    <ProgressBar value={stat.base_stat} />
+                <div className="stat_wrapper " key={i}>
+                  <div className="stat_name color" >{stat.stat.name}</div>
+                  <div className="progress_bar">
+                    <div style={{width:`${stat.base_stat}%`,backgroundColor: "#D14D36",height:"10px"}}></div>
                   </div>
-                  <div style={{ flex: 0.3 }}> {stat.base_stat}</div>
+                  <div className="stat-number color"> {stat.base_stat}</div>
                 </div>
               ))}
             </div>
           )}
-        </div>
+        </>
       ) : (
-        <div 
-        style={{
-          background: "lightblue",
-          borderRadius: "inherit",
-          color: "white",
-        }}
-        >
-          {pokemonDetail &&
-            pokemonDetail.types &&
-            pokemonDetail.types[0] &&
+        <>
+          {typeName&&
             pokemonDetail?.sprites && (
               <>
-                <div>
-                  <img
-                    onMouseOver={handleToggle}
-                    //  onMouseOut={handleToggle}
-                    style={{ width: "80px", height: "80px" }}
-                    alt="pokemon"
-                    src={
-                      pokemonDetail.sprites?.other?.dream_world?.front_default
-                    }
-                  />
+                <div className="image_container">
+                  <div className="image_wrapper">
+                    <img
+                      className="pokemon_image"
+                      alt="pokemon"
+                      src={
+                        pokemonDetail.sprites?.other?.dream_world?.front_default
+                      }
+                    />
+                  </div>
                 </div>
-                <div>#{pokemonDetail.id}</div>
-                <div>{pokemonDetail.name}</div>
-                <div>{pokemonDetail?.types[0]?.type?.name}</div>
+                <div className="pokemon_details_wrapper">
+                  <div className="pokemon_id">#{pokemonDetail.id}</div>
+                  <div className="text color margin">{pokemonDetail.name}</div>
+                  <div className="text color margin">{pokemonDetail?.types[0]?.type?.name}</div>
+                </div>
               </>
             )}
-        </div>
+        </>
       )}
     </div>
   );

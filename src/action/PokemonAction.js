@@ -18,6 +18,23 @@ export const pokemonAction = (data) => {
         payload: data
     }
 }
+export const fetchPokemonDetails = (name) => {
+    return (dispatch) => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+            .then((res) => {
+                const pokemonDetails=res.data
+                dispatch(pokemonDetailsAction(pokemonDetails))
+            })
+            .catch((err) => alert(err.message))
+    }
+}
+
+export const pokemonDetailsAction = (data) => {
+    return {
+        type: "POKEMON_DETAIL_FETCH",
+        payload: data
+    }
+}
 
 
 export const searchPokemonDetail = (data) => {

@@ -6,16 +6,20 @@ import Search from "./Search";
 
 const PokemonDetails = () => {
   const dispatch = useDispatch();
+
+  const pokemons = useSelector((state) => state.pokemons);
+  const searchedPokemons = useSelector((state) => state.searchedPokemon);
+
+
   useEffect(() => {
     dispatch(fetchPokemon());
   }, [dispatch]);
-  const pokemons = useSelector((state) => state.pokemons);
-  const searchedPokemons = useSelector((state) => state.searchedPokemon);
-  return (
-    <div>
-      <Search pokemons={pokemons} />
 
-      <div className="pokemonList ">
+
+  return (
+    <div >
+      <Search pokemons={pokemons} />
+      <div className="listing_pokemons ">
         {searchedPokemons.length > 0 ? (
           <>
             {searchedPokemons &&
