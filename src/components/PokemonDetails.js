@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PokemonCard from "./PokemonCard";
 import { fetchPokemon } from "../action/PokemonAction";
 import Search from "./Search";
-
+import Button from "./Button";
 const PokemonDetails = () => {
   const dispatch = useDispatch();
 
@@ -16,9 +16,12 @@ const PokemonDetails = () => {
   }, [dispatch]);
 
 
+
   return (
     <div >
-      <Search pokemons={pokemons} />
+      <div className="header_wrapper" >
+         <Search  pokemons={pokemons} />
+        <Button  /></div>
       <div className="listing_pokemons ">
         {searchedPokemons.length > 0 ? (
           <>

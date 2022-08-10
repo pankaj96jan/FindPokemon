@@ -8,7 +8,6 @@ const PokemonCard = ({ name }) => {
 
   const handleToggle = (id) => {
     setToggle(id);
-    console.log(toggle);
   };
 
   useEffect(() => {
@@ -19,11 +18,11 @@ const PokemonCard = ({ name }) => {
       })
       .catch((err) => alert(err.message));
   }, [name]);
-  const typeName=pokemonDetail &&
-  pokemonDetail.types &&
-  pokemonDetail.types[0] 
-  
-  const wrapperClass = !toggle ? "card_wrapper " : "progress_wrapper";
+  const typeName = pokemonDetail &&
+    pokemonDetail.types &&
+    pokemonDetail.types[0]?.type?.name
+
+  const wrapperClass = !toggle ? `card_wrapper ${typeName}` : `progress_wrapper`;
   return (
     <div
       className={wrapperClass}
@@ -38,7 +37,7 @@ const PokemonCard = ({ name }) => {
                 <div className="stat_wrapper " key={i}>
                   <div className="stat_name color" >{stat.stat.name}</div>
                   <div className="progress_bar">
-                    <div style={{width:`${stat.base_stat}%`,backgroundColor: "#D14D36",height:"10px"}}></div>
+                    <div style={{ width: `${stat.base_stat}%`, backgroundColor: "#D14D36", height: "10px" }}></div>
                   </div>
                   <div className="stat-number color"> {stat.base_stat}</div>
                 </div>
@@ -48,7 +47,7 @@ const PokemonCard = ({ name }) => {
         </>
       ) : (
         <>
-          {typeName&&
+          {typeName &&
             pokemonDetail?.sprites && (
               <>
                 <div className="image_container">
